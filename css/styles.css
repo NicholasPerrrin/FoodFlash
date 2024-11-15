@@ -75,6 +75,8 @@
   .recommended img {
     max-height: 150px;
   }
-  .recommended_description {
-    /*float: left;*/
+  /* Styles for account page*/
+  footer {
+    margin-top: 500px;
+    text-align: center;
   }

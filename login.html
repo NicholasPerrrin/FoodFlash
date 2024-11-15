@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="css/registrationstyles.css"> <!-- Link of CSS file -->
+    <script src="javascript/rememberme.js" defer></script>
+    <style>
+        input[type="checkbox"] {
+            width: 10px; /* Adjust width as needed */
+            height: 10px; /* Adjust height as needed */
+            transform: scale(1.5); /* Scale the checkbox size */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Login</h2>
+        <form action="phpscripts/loginauthenticate.php" method="POST">
+            <div class="form-group">
+                <label for="username">Username Or Email Address</label>
+                <input type="text" id="username" name="username" placeholder="Enter Your Username or Email Address" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
+            </div>
+            <label for="rememberMe">Remember Username <input type="checkbox" value="lsRememberMe" id="rememberMe"></label>
+            <button type="submit">Login</button>
+        </form>
+        <p><a href="registration.html">Sign up for one!</a></p>
+        <p><a href="forgotpassword.html">Forgot Password</a></p>
+    </div>
+</body>
+</html>
