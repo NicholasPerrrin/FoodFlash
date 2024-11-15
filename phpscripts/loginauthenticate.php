@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
     // Login successful
     /*session_start();*/
     $_SESSION["Username"] = $username;
-    header("Location: mainpage.php"); // Redirect to the dashboard or home page
+    header("Location: ../mainpage.php"); // Redirect to the dashboard or home page
     exit();
 } else {
     // Login failed

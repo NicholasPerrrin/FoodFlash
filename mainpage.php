@@ -11,9 +11,8 @@ session_start();
     <body>
         <header>
             <div class="topnav">
-                <a href="#">Placeholder</a>
-                <a href="#">Placeholder</a>
-                <a href="#">Placeholder</a>
+                <a href="#">Home</a>
+                <a href="#">Restaurant View</a>
                 <input type="text" placeholder="Search...">
                 <a href="accountpage.php" style="float: right;"><img src="images/profileOutline.png" height="50px" alt="profile Outline"></a>
             </div>
