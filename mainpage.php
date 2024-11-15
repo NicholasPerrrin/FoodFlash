@@ -11,10 +11,11 @@ session_start();
     <body>
         <header>
             <div class="topnav">
-                <a href="#">Home</a>
+                <a href="mainpage.php">Home</a>
                 <a href="#">Restaurant View</a>
-                <input type="text" placeholder="Search...">
-                <a href="accountpage.php" style="float: right;"><img src="images/profileOutline.png" height="50px" alt="profile Outline"></a>
+                <form action="phpscripts/search.php" method="POST"><input id="searchField" name="searchField" type="text" placeholder="Search..."></form>
+                <a href="accountPage.php"><img src="images/profileOutline.png" height="50px" alt="profile outline"></a>
+                <a href="searchPage.php" style="float: right;"><img src="images/magnifying-glass.png" height="50px" alt="magnifying glass"></a>
             </div>
         </header>
         <div id="category_section">
@@ -24,13 +25,13 @@ session_start();
             <a href="#" class="categories">Category3</a>
         </div>
         <div>
-            <p class="headers">Recommended</p>
+            <p class="headers">All Restaurants</p>
             <a href="#" class="recommended"><img src="images/chineseRestaurant.jpg"><p class="recommended_description">Restaurant</p><br></a>
             <a href="#" class="recommended"><img src="images/chineseRestaurant.jpg"><p class="recommended_description">Restaurant</p><br></a>
             <a href="#" class="recommended"><img src="images/chineseRestaurant.jpg"><p class="recommended_description">Restaurant</p><br></a>
         </div>
         <footer>
-            <?php echo "Welcome " . $_SESSION["Username"]; ?>
+            <?php echo "Welcome " . $_SESSION["Username"];?>
         </footer>
     </body>
 </html>

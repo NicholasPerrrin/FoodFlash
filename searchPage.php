@@ -5,7 +5,7 @@ session_start();
 <html lang="en">
 	<head>
         <meta charset="utf-8">
-        <title>Food Flash</title>
+        <title>Food Flash Search</title>
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
@@ -17,15 +17,12 @@ session_start();
                 <a href="accountPage.php"><img src="images/profileOutline.png" height="50px" alt="profile outline"></a>
                 <a href="searchPage.php" style="float: right;"><img src="images/magnifying-glass.png" height="50px" alt="magnifying glass"></a>
             </div>
-            <h2>Account Information</h2>
-            <p>UserName: <?php echo $_SESSION["Username"] ?> </p>
-            <p></p>
-            <div>
-            </div>
-            <footer>
-                Don't have an account? Register <a href="registration.html">Here</a>
-                |  Already a member? Login <a href="login.html">Here</a>
-                |  <a href="Logout.html">Logout</a>
-            </footer>
+        </header>
+        <div>
+
+        </div>
+        <footer>
+            <?php echo "Welcome " . $_SESSION["Username"]; echo $_SESSION["searchValue"] ?>
+        </footer>
     </body>
 </html>
