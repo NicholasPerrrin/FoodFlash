@@ -57,19 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->execute();
         
-        /*if ($stmt->execute()) {
-            $sql = "INSERT INTO account (account_name) VALUES ('$username');";
-            if ($conn->query($sql) === TRUE) {*/
                     echo "Account created successfully. <a href='login.html'>Click here</a> to login in.";
-            /*} else {
-                echo "Error: " . $stmt->error;
-            }*/
-            // set session variables
-            //$_SESSION['username'] = $username;
-            
-        /*} else {
-            echo "Error: " . $stmt->error;
-        }*/
+
         $stmt->close();
     } else {
         foreach ($errors as $error) {
