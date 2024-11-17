@@ -41,7 +41,7 @@ session_start();
               // output data of each row
               while($row = $result->fetch_assoc()) {
                 echo '<form id="form1" style="text-align: center;background-color: #e9e9e9;padding: 20px;border: solid black;">restaurant Name:  '. $row["restaurantName"]. " - Location: " . $row["restaurantLocation"]. 
-                " - estimated price: $" . $row["estimatedPrice"]. "<br><input type='submit' value='Submit'></form>";
+                " - estimated price: $" . $row["estimatedPrice"]. "<br><input type='submit' value='View menu'></form>";
               }
             } else {
               echo "0 results";
