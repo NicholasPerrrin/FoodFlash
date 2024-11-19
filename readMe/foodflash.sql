@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2024 at 04:06 PM
+-- Generation Time: Nov 19, 2024 at 08:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `foodflash`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `cartID` int(11) NOT NULL,
+  `customerID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cartID`, `customerID`) VALUES
+(2, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cartitem`
+--
+
+CREATE TABLE `cartitem` (
+  `cartID` int(11) NOT NULL,
+  `itemID` int(11) NOT NULL,
+  `cartitemID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cartitem`
+--
+
+INSERT INTO `cartitem` (`cartID`, `itemID`, `cartitemID`) VALUES
+(1, 10, 1),
+(1, 10, 2),
+(2, 1, 3),
+(2, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -41,9 +81,27 @@ CREATE TABLE `category` (
 CREATE TABLE `menuitem` (
   `itemID` int(11) NOT NULL,
   `restaurantID` int(11) NOT NULL,
-  `categoryName` varchar(20) NOT NULL,
-  `itemName` varchar(20) NOT NULL
+  `itemName` varchar(30) NOT NULL,
+  `price` decimal(19,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `menuitem`
+--
+
+INSERT INTO `menuitem` (`itemID`, `restaurantID`, `itemName`, `price`) VALUES
+(1, 1, 'tacos', 3.00),
+(3, 1, 'Fire-Grilled Tacos', 20.00),
+(5, 2, 'Fire-Grilled Tacos', 20.00),
+(6, 1, 'Smoky Chipotle Quesa', 15.00),
+(7, 2, 'Smoky Chipotle Quesa', 15.00),
+(8, 1, 'Tres Leches Flan', 8.00),
+(9, 2, 'Tres Leches Flan', 8.00),
+(10, 4, 'Maple Bacon Burger', 17.00),
+(11, 4, 'All-Day Loaded Break', 12.00),
+(12, 4, 'Old-School Banana Split', 8.00),
+(13, 5, 'Dragon Fire Roll', 8.00),
+(14, 5, 'Matcha Mochi Ice Cream', 12.00);
 
 -- --------------------------------------------------------
 
@@ -70,8 +128,20 @@ CREATE TABLE `restaurant` (
   `restaurantID` int(11) NOT NULL,
   `restaurantName` varchar(30) NOT NULL,
   `estimatedPrice` decimal(19,2) NOT NULL,
-  `location` varchar(50) NOT NULL
+  `restaurantLocation` varchar(50) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `descript` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `restaurant`
+--
+
+INSERT INTO `restaurant` (`restaurantID`, `restaurantName`, `estimatedPrice`, `restaurantLocation`, `category`, `descript`) VALUES
+(1, 'Mexican Fiesta', 15.00, 'Detroit, MI', 'Mexican', 'A cozy spot with adobe walls, hand-painted tiles, and papel picado. The air smells of fresh tortillas and meats, while soft mariachi music sets a warm, welcoming vibe.'),
+(2, 'My Mexican Restaurant', 20.00, 'Warren, MI', 'Mexican', 'Chic decor with neon accents and modern art. The open kitchen highlights chefs crafting fusion dishes, blending authentic flavors with a contemporary twist. A lively, urban atmosphere.'),
+(4, 'The Greasy Spoon', 15.00, 'Warren, MI', 'American', ''),
+(5, 'Sakura Blossom Bistro', 20.00, 'Warren, MI', 'Sushi', '');
 
 -- --------------------------------------------------------
 
@@ -86,6 +156,13 @@ CREATE TABLE `review` (
   `rating` int(11) NOT NULL,
   `text` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`reviewID`, `customerID`, `restaurantID`, `rating`, `text`) VALUES
+(1, 4, 1, 1, 'this is a really good place!');
 
 -- --------------------------------------------------------
 
@@ -118,11 +195,23 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`customerID`, `username`, `email`, `password`) VALUES
-(3, 'nicholasperrin', 'perrinnick7@gmail.com', 'password');
+(4, 'nperrin1', 'perrinnick7@gmail.com', 'password');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cartID`);
+
+--
+-- Indexes for table `cartitem`
+--
+ALTER TABLE `cartitem`
+  ADD PRIMARY KEY (`cartitemID`);
 
 --
 -- Indexes for table `category`
@@ -171,6 +260,18 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `cartitem`
+--
+ALTER TABLE `cartitem`
+  MODIFY `cartitemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -180,7 +281,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `menuitem`
 --
 ALTER TABLE `menuitem`
-  MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -192,13 +293,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurantID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `restaurantID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `savedorder`
@@ -210,7 +311,7 @@ ALTER TABLE `savedorder`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
