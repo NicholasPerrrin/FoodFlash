@@ -17,6 +17,7 @@ session_start();
                 <input id="searchField" name="searchField" type="text" placeholder="Search...">
             </form>
             <a href="accountPage.php"><img src="images/profileOutline.png" height="50" alt="profile outline"></a>
+            <a href="cart.php">Cart</a>
             <img src="images/FoodFlashLogo.png" height="50" alt="Food Flash Logo">
             <a href="searchPage.php" style="float: right;">
                 <img src="images/magnifying-glass.png" height="50px" alt="Search Icon">
@@ -54,25 +55,23 @@ session_start();
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $_SESSION['restaurantID'] = 123; // Replace 123 with a valid ID from your database
+            $_SESSION['restaurantID'] = 1; // Replace 123 with a valid ID from your database
 
             $restaurantID = $_SESSION['restaurantID'] ?? null; // Assuming restaurantID is stored in session
             if ($restaurantID) {
-                $sql = "SELECT itemName, itemDescription, itemPrice FROM menu WHERE restaurantID = $restaurantID";
+                $sql = "SELECT itemName, price FROM menuitem WHERE restaurantID = $restaurantID";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
                     echo "<table style='width: 100%; border-collapse: collapse;'>";
                     echo "<tr>
                             <th style='border: 1px solid black; padding: 8px;'>Item Name</th>
-                            <th style='border: 1px solid black; padding: 8px;'>Description</th>
                             <th style='border: 1px solid black; padding: 8px;'>Price ($)</th>
                           </tr>";
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
                                 <td style='border: 1px solid black; padding: 8px;'>{$row['itemName']}</td>
-                                <td style='border: 1px solid black; padding: 8px;'>{$row['itemDescription']}</td>
-                                <td style='border: 1px solid black; padding: 8px;'>{$row['itemPrice']}</td>
+                                <td style='border: 1px solid black; padding: 8px;'>{$row['price']}</td>
                               </tr>";
                     }
                     echo "</table>";

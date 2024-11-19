@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $sql = "INSERT INTO cart (cartID, customerID) VALUES ('$customerID', '$customerID');";
             if ($conn->query($sql) === TRUE) {
-                    echo "Account created successfully. <a href='login.html'>Click here</a> to login in.";
+                    echo "Account created successfully. <a href='../login.html'>Click here</a> to login in.";
             } else {
                 echo "Error: " . $stmt->error;
             }

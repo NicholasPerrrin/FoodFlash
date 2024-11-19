@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['customerID'])) {
     <header>
         <div class="topnav">
             <a href="mainpage.php">Home</a>
-            <a href="#">Restaurant View</a>
+            <a href="Restaurantview.php">Restaurant View</a>
             <form action="phpscripts/search.php" method="POST">
                 <input id="searchField" name="searchField" type="text" placeholder="Search...">
             </form>

@@ -12,16 +12,15 @@ session_start();
         <header>
             <div class="topnav">
                 <a href="mainpage.php">Home</a>
-                <a href="#">Restaurant View</a>
+                <a href="Restaurantview.php">Restaurant View</a>
                 <form action="phpscripts/search.php" method="POST"><input id="searchField" name="searchField" type="text" placeholder="Search..."></form>
                 <a href="accountPage.php"><img src="images/profileOutline.png" height="50px" alt="profile outline"></a>
+                <a href="cart.php">Cart</a>
                 <img src="images/FoodFlashLogo.png" height="50">
                 <a href="searchPage.php" style="float: right;"><img src="images/magnifying-glass.png" height="50px" alt="magnifying glass"></a>
             </div>
         </header>
         <div>
-
-        </div>
             <h2>Items in Cart</h2>
             <?php
             $servername = "localhost";
@@ -42,6 +41,8 @@ session_start();
             $customerID = $_SESSION['customerID'];
             //get cartID
             $cartID = $_SESSION['cartID'];
+            //set initial price to 0
+            $price = 0;
 
             // get ids of all items in the cart
             $sql = "SELECT itemID FROM cartitem where cartID='$cartID'";
@@ -56,15 +57,23 @@ session_start();
                     $newResult = $conn->query($sql);
                     while($newRow = $newResult->fetch_assoc()) {
                         echo $newRow['itemName'] . " - " . $newRow['price'] . "<br>";
+                        $price = $price + $newRow['price'];
+                        $_SESSION['total'] = $price;
                     }
                 }
             }
             ?>
+        </div>
+        <div>
+            <?php
+            echo "<form method='POST' action='phpscripts/addTip.php'><input type='number' min='0' name='tipAmount'><input type='submit' value='Add Tip'></form>";
+            ?>
+        </div>
         <div>
             <h2>Total</h2>
             <p>
                 <?php
-                echo $_SESSION['total'];
+                echo $_SESSION['total'] + $_SESSION['tip'];
                 ?>
             </p>
         </div>

@@ -34,7 +34,7 @@ $sql = "INSERT INTO cartitem (cartID, itemID) VALUES ('$cartID', '$itemID')";
 $result = $conn->query($sql);
 
 //increase the total in the cost
-$_SESSION['total'] = $_SESSION['total'] + $price;
+//$_SESSION['total'] = $_SESSION['total'] + $price;
 
 header("Location: ../restaurantPage.php"); // Redirect to the search page
 ?>
