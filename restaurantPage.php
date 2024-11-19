@@ -68,12 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['customerID'])) {
         <h2><?php echo $restaurantName; ?></h2>
         <p>
         <?php
-        $sql = "SELECT descript FROM restaurant where restaurantName = '$restaurantName'";
+        $sql = "SELECT descript, restaurantID FROM restaurant where restaurantName = '$restaurantName'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             echo $row['descript'];
+            //set reataurant session variable
+            $_SESSION['restaurantID'] = $row['restaurantID'];
         }
         ?>
         </p>

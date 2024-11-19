@@ -51,7 +51,6 @@ session_start();
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $itemID = $row['itemID'];
-                    echo $itemID;
                     //get name of item
                     $sql = "SELECT itemName, price FROM menuItem where itemID='$itemID'";
                     $newResult = $conn->query($sql);
@@ -73,9 +72,15 @@ session_start();
             <h2>Total</h2>
             <p>
                 <?php
-                echo $_SESSION['total'] + $_SESSION['tip'];
+                echo "$ " . $_SESSION['total'] + $_SESSION['tip'];
                 ?>
             </p>
+        </div>
+        <div>
+            <h2>Address</h2>
+            <?php
+            echo "<form method='POST' action='phpscripts/saveOrderInfo.php'><input name='address' placeholder='address' type='text'><input type='submit' value='Complete Order'></form>";
+            ?>
         </div>
         <footer>
             <?php echo " restaurant name: " .  $_SESSION["restaurantName"];?>
