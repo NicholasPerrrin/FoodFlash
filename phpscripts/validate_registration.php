@@ -55,9 +55,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $hashed_password);
 
-        $stmt->execute();
-        
+        if ($stmt->execute()) {
+            $sql = "SELECT customerID FROM users where username='$username'";
+            $result = $conn->query($sql);
+
+            while($row = $result->fetch_assoc()) {
+                $customerID = $row['customerID'];
+            }
+
+            $sql = "INSERT INTO cart (customerID) VALUES ('$customerID');";
+            if ($conn->query($sql) === TRUE) {
                     echo "Account created successfully. <a href='login.html'>Click here</a> to login in.";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            // set session variables
+            //$_SESSION['username'] = $username;
+            
+        } else {
+            echo "Error: " . $stmt->error;
+        }
 
         $stmt->close();
     } else {

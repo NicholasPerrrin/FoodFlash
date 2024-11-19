@@ -14,11 +14,12 @@ if ($conn->connect_error) {
 
 // get item to add id
 $itemToAdd = trim($_POST['itemName']);
-$sql = "SELECT itemID FROM menuitem where itemName='$itemToAdd'";
+$sql = "SELECT * FROM menuitem where itemName='$itemToAdd'";
 $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()) {
     $itemID = $row['itemID'];
+    $price = $row['price'];
 }
 
 // get cart id
@@ -31,6 +32,9 @@ while($row = $result->fetch_assoc()) {
 
 $sql = "INSERT INTO cartitem (cartID, itemID) VALUES ('$cartID', '$itemID')";
 $result = $conn->query($sql);
+
+//increase the total in the cost
+$_SESSION['total'] = $_SESSION['total'] + $price;
 
 header("Location: ../restaurantPage.php"); // Redirect to the search page
 ?>
