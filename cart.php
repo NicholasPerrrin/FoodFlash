@@ -40,16 +40,23 @@ session_start();
 
             //get customerID of logged in user
             $customerID = $_SESSION['customerID'];
+            //get cartID
+            $cartID = $_SESSION['cartID'];
 
-            $sql = "SELECT itemID FROM cart join cartitem on cart.cartID=cartitem.cartID where customerID='$customerID'";
+            // get ids of all items in the cart
+            $sql = "SELECT itemID FROM cartitem where cartID='$cartID'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $itemID = $row['itemID'];
+                    echo $itemID;
                     //get name of item
-                    $sql = "SELECT itemName, price FROM menuItem join cartitem on cart.cartID=cartitem.cartID where customerID='$customerID'";
-                    $result = $conn->query($sql);
+                    $sql = "SELECT itemName, price FROM menuItem where itemID='$itemID'";
+                    $newResult = $conn->query($sql);
+                    while($newRow = $newResult->fetch_assoc()) {
+                        echo $newRow['itemName'] . " - " . $newRow['price'] . "<br>";
+                    }
                 }
             }
             ?>

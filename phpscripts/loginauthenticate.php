@@ -24,6 +24,7 @@ if ($result->num_rows > 0) {
     // Verify the password
     if ($password === $row['Password']) { // Replace with password_verify() if using hashed passwords
         $_SESSION["customerID"] = $row["customerID"];
+        $_SESSION["cartID"] = $row["customerID"];
         $_SESSION["Username"] = $username;
         header("Location: ../mainpage.php"); // Redirect to the dashboard or home page
         exit();
