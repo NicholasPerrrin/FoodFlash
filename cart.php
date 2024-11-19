@@ -37,13 +37,24 @@ session_start();
             }
 
             $username = $_SESSION["Username"];
-            
-            $sql = "SELECT * FROM cart join cartitem on cart.cartID=cartitem.cartID where customerID = '$restaurantName'";
+
+            //get customerID of logged in user
+            $sql = "SELECT customerID FROM users where username='$username'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    
+                    $customer = $row['customerID'];
+                }
+            }
+
+            //
+            $sql = "SELECT itemID FROM cart join cartitem on cart.cartID=cartitem.cartID where customerID='$customerID'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo $row['itemID'];
                 }
             }
             ?>
