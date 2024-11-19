@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['customerID'])) {
     <div>
         <h2>Customer Reviews</h2>
         
-        <?php if (isset($_SESSION['Username'])): ?>
+        <?php if (isset($_SESSION['customerID'])): ?>
             <!-- Review Form -->
             <div>
                 <h3>Write a Review</h3>
