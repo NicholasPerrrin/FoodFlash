@@ -36,11 +36,17 @@ session_start();
 
             </div>
     </header>
+    <!-- form for connecting to a restaurant -->
+     <form method='POST'>
+        <input type='text' placeholder='Restaurant ID' name='restaurantID'>
+        <input type='text' placeholder='password' name='password'>
+        <input type='submit' value='Connect'>
+     </form>
     <main>
         <!-- Section for restaurant actions -->
         <div id="restaurant_actions" style="margin: 20px;">
             <p class="headers">Manage Menu</p>
-            <form action="phpscripts/addMenuItem.php" method="POST">
+            <form action="addMenuItem.php" method="POST">
                 <button type="submit">Add to Menu</button>
             </form>
             <form action="phpscripts/updateMenuItem.php" method="POST">
@@ -67,32 +73,34 @@ session_start();
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $_SESSION['restaurantID'] = 1; // Replace 123 with a valid ID from your database
 
-            $restaurantID = $_SESSION['restaurantID'] ?? null; // Assuming restaurantID is stored in session
-            if ($restaurantID) {
-                $sql = "SELECT itemName, price FROM menuitem WHERE restaurantID = $restaurantID";
-                $result = $conn->query($sql);
+                $restaurantID = trim($_POST['restaurantID']);
+                $_SESSION['restaurantID'] = $restaurantID;
+                $password = trim($_POST['password']);
+                $_SESSION['restPassword'] = $password;
+                if ($restaurantID) {
+                    $sql = "SELECT itemName, price FROM menuitem WHERE restaurantID = $restaurantID";
+                    $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                    echo "<table style='width: 100%; border-collapse: collapse;'>";
-                    echo "<tr>
-                            <th style='border: 1px solid black; padding: 8px;'>Item Name</th>
-                            <th style='border: 1px solid black; padding: 8px;'>Price ($)</th>
-                          </tr>";
-                    while ($row = $result->fetch_assoc()) {
+                    if ($result->num_rows > 0) {
+                        echo "<table style='width: 100%; border-collapse: collapse;'>";
                         echo "<tr>
-                                <td style='border: 1px solid black; padding: 8px;'>{$row['itemName']}</td>
-                                <td style='border: 1px solid black; padding: 8px;'>{$row['price']}</td>
-                              </tr>";
+                                <th style='border: 1px solid black; padding: 8px;'>Item Name</th>
+                                <th style='border: 1px solid black; padding: 8px;'>Price ($)</th>
+                            </tr>";
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>
+                                    <td style='border: 1px solid black; padding: 8px;'>{$row['itemName']}</td>
+                                    <td style='border: 1px solid black; padding: 8px;'>{$row['price']}</td>
+                                </tr>";
+                        }
+                        echo "</table>";
+                    } else {
+                        echo "<p>No menu items found.</p>";
                     }
-                    echo "</table>";
                 } else {
-                    echo "<p>No menu items found.</p>";
+                    echo "<p>Restaurant not selected. Please log in or contact support.</p>";
                 }
-            } else {
-                echo "<p>Restaurant not selected. Please log in or contact support.</p>";
-            }
 
             $conn->close();
             ?>

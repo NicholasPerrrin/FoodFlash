@@ -19,11 +19,12 @@ $customerID = $_SESSION['customerID'];
 $eta = date("h:i:a");
 $restaurantID = $_SESSION['restaurantID'];
 $timePlaced = date("h:i:sa");
+$date = date("Y/m/d");
 
 
 // create new order
 
-$sql = "INSERT INTO orders (addr, customerID, restaurantID, timePlaced, ETA) VALUES ('$address', '$customerID', '$restaurantID', '$timePlaced', '$eta')";
+$sql = "INSERT INTO orders (addr, customerID, restaurantID, timePlaced, ETA, datePlaced) VALUES ('$address', '$customerID', '$restaurantID', '$timePlaced', '$eta', '$date')";
 $result = $conn->query($sql);
 
 header("Location: ../orderComplete.php"); // Redirect to the search page
