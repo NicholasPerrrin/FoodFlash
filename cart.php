@@ -11,8 +11,11 @@ session_start();
     <body>
         <header>
             <div class="topnav">
+
                 <!-- FoodFlash logo -->
                 <img src="images/FoodFlashLogo.png" class="logo" alt="FoodFlash Logo">
+
+                
 
                 <!-- Navigation links -->
                 <div class="nav-links">
@@ -20,15 +23,17 @@ session_start();
                     <a href="Restaurantview.php">Restaurant View</a>
                     <a href="accountPage.php"><img src="images/profileOutline.png" height="50" alt="profile outline"></a>
                     <a href="cart.php">Cart</a>
+                    <a href="bookmarkedRestaurants.php">My Bookmarks</a>
                 </div>
 
-                <!-- Search box -->
-                <form action="phpscripts/search.php" method="POST">
+                 <!-- Search box -->
+                 <form action="phpscripts/search.php" method="POST">
                     <input id="searchField" name="searchField" type="text" placeholder="Search...">
                 </form>
                 <a href="searchPage.php" style="float: right;">
                     <img src="images/magnifying-glass.png" height="50px" alt="Search Icon">
                 </a>
+
             </div>
         </header>
         <div>
