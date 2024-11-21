@@ -72,7 +72,12 @@ session_start();
             <h2>Total</h2>
             <p>
                 <?php
-                echo "$ " . $_SESSION['total'] + $_SESSION['tip'];
+                if (isset($_SESSION['tip'])) {
+                    $tip = $_SESSION['tip'];
+                } else {
+                    $tip = 0;
+                }
+                echo "Total: $ " . $_SESSION['total'] + $_SESSION['tip'];
                 ?>
             </p>
         </div>

@@ -12,12 +12,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+date_default_timezone_set("America/New_York");
 //variables
 $address = trim($_POST['address']);
 $customerID = $_SESSION['customerID'];
 $eta = date("h:i:a");
 $restaurantID = $_SESSION['restaurantID'];
-$timePlaced = date("h:i:a");
+$timePlaced = date("h:i:sa");
 
 
 // create new order
@@ -25,9 +26,5 @@ $timePlaced = date("h:i:a");
 $sql = "INSERT INTO orders (addr, customerID, restaurantID, timePlaced, ETA) VALUES ('$address', '$customerID', '$restaurantID', '$timePlaced', '$eta')";
 $result = $conn->query($sql);
 
-echo "<a href='../mainpage.php'>home</a>";
-
-echo "<h1 style='text-align: center;'>Order placed</h1>"
-
-//header("Location: ../restaurantPage.php"); // Redirect to the search page
+header("Location: ../orderComplete.php"); // Redirect to the search page
 ?>
