@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$restaurantName = $_SESSION["restaurantName"];
+$restaurantName = $_SESSION["restaurantname"];
 
 // Get restaurant ID
 $restaurantQuery = "SELECT restaurantID FROM restaurant WHERE restaurantName = '$restaurantName'";

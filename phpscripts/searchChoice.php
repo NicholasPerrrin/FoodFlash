@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 $restaurantName = trim($_POST['restaurantName']);
 
-$_SESSION['restaurantName'] = $restaurantName;
+$_SESSION['restaurantname'] = $restaurantName;
 
 header("Location: ../restaurantPage.php"); // Redirect to the search page
 ?>
