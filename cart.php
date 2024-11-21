@@ -11,8 +11,11 @@ session_start();
     <body>
         <header>
             <div class="topnav">
+
                 <!-- FoodFlash logo -->
                 <img src="images/FoodFlashLogo.png" class="logo" alt="FoodFlash Logo">
+
+                
 
                 <!-- Navigation links -->
                 <div class="nav-links">
@@ -20,24 +23,48 @@ session_start();
                     <a href="Restaurantview.php">Restaurant View</a>
                     <a href="accountPage.php"><img src="images/profileOutline.png" height="50" alt="profile outline"></a>
                     <a href="cart.php">Cart</a>
+                    <a href="bookmarkedRestaurants.php">My Bookmarks</a>
                 </div>
 
-                <!-- Search box -->
-                <form action="phpscripts/search.php" method="POST">
+                 <!-- Search box -->
+                 <form action="phpscripts/search.php" method="POST">
                     <input id="searchField" name="searchField" type="text" placeholder="Search...">
                 </form>
                 <a href="searchPage.php" style="float: right;">
                     <img src="images/magnifying-glass.png" height="50px" alt="Search Icon">
                 </a>
+
             </div>
+
+  
         </header>
+        <div id="category_section">
+            <p class="headers">Categories</p>
+            <form action="phpscripts/categories.php" method="POST">
+                <input type="radio" value="American" id="American" name="categories">
+                <label for="American">American</label>
+                <input type="radio" value="Chinese" id="Chinese" name="categories">
+                <label for="Chinese">Chinese</label>
+                <input type="radio" value="Sushi" id="Sushi" name="categories">
+                <label for="Sushi">Sushi</label>
+                <input type="radio" value="Mexican" id="Mexican" name="categories">
+                <label for="Mexican">Mexican</label>
+                <br>
+                <input type="submit" value="Load Recommendations">
+            </form>
+            <!--<a href="#" class="categories">Category1</a>
+            <a href="#" class="categories">Category2</a>
+            <a href="#" class="categories">Category3</a>-->
+        </div>
         <div>
-            <h2>Items in Cart</h2>
-            <?php
+        <?php
             $servername = "localhost";
             $username = "root";
             $password = "";
             $dbname = "foodflash";
+
+            if (isset($_SESSION['categories'])) {
+            $radioValue = $_SESSION['categories'];
             
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
@@ -45,56 +72,41 @@ session_start();
             if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error);
             }
-
-            $username = $_SESSION["Username"];
-
-            //get customerID of logged in user
-            $customerID = $_SESSION['customerID'];
-            //get cartID
-            $cartID = $_SESSION['cartID'];
-            //set initial price to 0
-            $price = 0;
-
-            // get ids of all items in the cart
-            $sql = "SELECT itemID FROM cartitem where cartID='$cartID'";
+            
+            $sql = "SELECT restaurantName, restaurantLocation, estimatedPrice FROM restaurant where category like '%$radioValue%'";
             $result = $conn->query($sql);
-
+            
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    $itemID = $row['itemID'];
-                    //get name of item
-                    $sql = "SELECT itemName, price FROM menuItem where itemID='$itemID'";
-                    $newResult = $conn->query($sql);
-                    while($newRow = $newResult->fetch_assoc()) {
-                        echo $newRow['itemName'] . " - " . $newRow['price'] . "<br>";
-                        $price = $price + $newRow['price'];
-                        $_SESSION['total'] = $price;
-                    }
-                }
+              // output data of each row
+              while($row = $result->fetch_assoc()) {
+                $restaurantName = $row['restaurantName'];
+                echo '<form method="POST" action="phpscripts/searchChoice.php" id="form1" style="text-align: center;background-color: #e9e9e9;padding: 20px;border: solid black;">restaurant Name:  '. 
+                "<input readonly type='text' name='restaurantName' id='restaurantName' value='$restaurantName'" . " - Location: " . $row["restaurantLocation"]. 
+                " - estimated price: $" . $row["estimatedPrice"]. "<br><input type='submit' value='View menu'></form>";
+              }
+            } else {
+              echo "0 results";
             }
+            $conn->close();
+        }
             ?>
-        </div>
-        <div>
+            <!--<p class="headers">All Restaurants</p>
+            <a href="#" class="recommended"><img src="images/chineseRestaurant.jpg"><p class="recommended_description">Restaurant</p><br></a>
+            <a href="#" class="recommended"><img src="images/chineseRestaurant.jpg"><p class="recommended_description">Restaurant</p><br></a>
+            <a href="#" class="recommended"><img src="images/chineseRestaurant.jpg"><p class="recommended_description">Restaurant</p><br></a>
+        -->
             <?php
-            echo "<form method='POST' action='phpscripts/addTip.php'><input type='number' min='0' name='tipAmount'><input type='submit' value='Add Tip'></form>";
-            ?>
-        </div>
-        <div>
-            <h2>Total</h2>
-            <p>
-                <?php
-                echo "$ " . $_SESSION['total'] + $_SESSION['tip'];
-                ?>
-            </p>
-        </div>
-        <div>
-            <h2>Address</h2>
-            <?php
-            echo "<form method='POST' action='phpscripts/saveOrderInfo.php'><input name='address' placeholder='address' type='text'><input type='submit' value='Complete Order'></form>";
+
             ?>
         </div>
         <footer>
-            <?php echo " restaurant name: " .  $_SESSION["restaurantName"];?>
+            <?php 
+            if (isset($_SESSION["Username"])) {
+                echo "Welcome " . $_SESSION["Username"];
+            } else {
+                echo "You are not logged in";
+            }
+            ?>
         </footer>
     </body>
 </html>
