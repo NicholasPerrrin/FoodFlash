@@ -49,10 +49,10 @@ session_start();
             <form action="addMenuItem.php" method="POST">
                 <button type="submit">Add to Menu</button>
             </form>
-            <form action="phpscripts/updateMenuItem.php" method="POST">
+            <form action="updateMenuItem.php" method="POST">
                 <button type="submit">Update Menu Item</button>
             </form>
-            <form action="phpscripts/removeMenuItem.php" method="POST">
+            <form action="removeMenuItem.php" method="POST">
                 <button type="submit">Remove Menu Item</button>
             </form>
         </div>
@@ -65,6 +65,9 @@ session_start();
             $username = "root";
             $password = "";
             $dbname = "foodflash";
+
+            //ignore warnings
+            error_reporting(0);
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);

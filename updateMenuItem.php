@@ -42,6 +42,7 @@ session_start();
         <div id="restaurant_actions" style="margin: 20px;">
             <p class="headers">New Values for Item</p>
             <form method="POST">
+                <input type='number' placeholder='Item ID' name='itemID'>
                 <input type='text' placeholder='Item Name' name='itemName'>
                 <input type='number' placeholder='price' name='price'>
                 <input type='submit' value='Update Menu'>
@@ -71,13 +72,12 @@ session_start();
                 //variables
                 $restaurantID = $_SESSION['restaurantID'];
                 $password = $_SESSION['restPassword'];
+                $itemID = trim($_POST['itemID']);
                 $itemName = trim($_POST['itemName']);
                 $price = trim($_POST['price']);
                 //update selected item
-                if (($itemName != null) && ($price != null)) {
-                    $sql = "INSERT INTO menuitem (restaurantID, itemName, price) VALUES ('$restaurantID', '$itemName', '$price')";
-                    $result = $conn->query($sql);
-                }
+                $sql = "UPDATE menuitem SET itemName='$itemName', price='$price' WHERE itemID='$itemID'";
+                $result = $conn->query($sql);
                 //display table
                 if ($restaurantID) {
                     $sql = "SELECT itemID, itemName, price FROM menuitem WHERE restaurantID = $restaurantID";
