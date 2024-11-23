@@ -190,7 +190,7 @@ $conn->close();
             ?>
         </footer>
 
-        <script src="js/slider.js"></script>
+        <script src="javascript/slider.js"></script>
 
     </body>
 </html>
