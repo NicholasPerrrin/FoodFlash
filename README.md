@@ -1,6 +1,6 @@
 # FoodFlash
 
-FoodFlash is a web application that facilitates restaurant management and reviewing system. The platform consists of two main interfaces: a customer-facing system for browsing restaurants and placing orders, and an administrative interface for restaurant owners to manage their menus and track orders. The application is built using PHP for the backend, with HTML5, CSS3, and JavaScript for the frontend, implementing features such as user authentication, order processing, and restaurant management tools.
+FoodFlash is a web application project that includes restaurant management and reviewing system. It consists of two main interfaces: a customer-facing system for browsing restaurants and placing orders, and an administrative interface for restaurant owners to manage their menus and track orders. The application is built using PHP for the backend, with HTML5, CSS3, and JavaScript for the frontend, implementing features such as user authentication, order processing, and restaurant management tools.
 
 ## Features
 
@@ -18,7 +18,7 @@ FoodFlash is a web application that facilitates restaurant management and review
 - Order tracking
 - Restaurant profile management
 
-## Tech Stack
+## Tech Used
 
 - **Frontend:**
   - HTML5
@@ -30,20 +30,8 @@ FoodFlash is a web application that facilitates restaurant management and review
   - PHP
   - MySQL/PostgreSQL (Database)
 
-## Project Structure
 
-```
-FoodFlash/
-├── css/                  # Stylesheets
-├── images/              # Image assets
-├── javascript/          # Client-side scripts
-├── phpscripts/          # Backend PHP scripts
-├── readMe/              # Additional documentation
-├── *.php               # Main application pages
-└── *.html              # Static pages
-```
-
-## Getting Started
+## Setting Up
 
 ### Prerequisites
 - PHP 7.0 or higher
